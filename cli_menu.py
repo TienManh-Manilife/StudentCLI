@@ -11,10 +11,15 @@ def main():
         print("3. Tìm kiếm sinh viên")
         print("4. Xóa sinh viên")
         print("5. Thoát")
+        print("6. Lưu dữ liệu vào file") 
+        print("7. Tải dữ liệu từ file")
 
-        choice = input("Chọn chức năng: ")
+        manager.load_from_file()
+
+        choice = input("Chọn 1 trong các chức năng: ")
 
         if choice == "1":
+            print("Nhập thông tin, có thể nhập có dấu:")
             sid = input("Nhập ID: ")
             name = input("Nhập tên: ")
             gpa = input("Nhập GPA: ")
@@ -36,6 +41,12 @@ def main():
             print("Thoát chương trình.")
             break
 
+        elif choice == "6":
+            manager.save_to_file()
+
+        elif choice == "7":
+            manager.load_from_file()
+
         else:
-            print("Lựa chọn không hợp lệ.")
+            print("Lựa chọn không hợp lệ!")
 
