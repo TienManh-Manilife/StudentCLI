@@ -1,5 +1,8 @@
 import csv
+
+import openpyxl
 from student import *
+from openpyxl.styles import Font, Alignment, PatternFill
 
 class StudentManager:
     def __init__(self):
@@ -12,6 +15,7 @@ class StudentManager:
         else :
             self.students.append(student)
             print("Thêm sinh viên thành công!")
+            self.save_to_file()
             return
 
     def show_students(self):
@@ -41,6 +45,7 @@ class StudentManager:
         else :
             self.students = [student for student in self.students if student.id != student_id]
             print("Đã xóa thành công!")
+            self.save_to_file()
 
     def save_to_file(self, file_name="students.csv"): 
         with open(file_name, mode="w", newline="", encoding="utf-8") as file: 
@@ -69,3 +74,23 @@ class StudentManager:
             year = input("Nhập năm học mới: ")
             self.students = [Student(student_id, name, gpa, year) if s.id == student_id else s for s in self.students]
             print("Đã sửa thành công!")
+            self.save_to_file()
+
+    def export_to_excel(self, file_name="students.xlsx"):
+        self.save_to_file()
+        self.load_from_file()
+        wb = openpyxl.Workbook()
+        sheet = wb.active
+        sheet.title = "Students"
+        headers = ["ID", "Name", "GPA", "Year"]
+        sheet.append(headers)
+        for col in range(1, len(headers)+1):
+            cell = sheet.cell(row=1, column=col)
+            cell.font = Font(bold=True, color="FFFFFF")
+            cell.alignment = Alignment(horizontal="center")
+            cell.fill = PatternFill(start_color="4F81BD", end_color="4F81BD", fill_type="solid")
+        for student in self.students:
+            sheet.append([student.id, student.name, student.gpa, student.year])
+
+        wb.save(file_name)
+        print("Đã xuất dữ liệu ra file Excel:", file_name)

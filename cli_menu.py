@@ -15,6 +15,7 @@ def main():
         print("6. Lưu dữ liệu vào file") 
         print("7. Tải dữ liệu từ file")
         print("8. Thay đổi thông tin sinh viên")
+        print("9. Xuất dữ liệu ra file Excel")
 
         if first_time:
             first_time = False
@@ -30,7 +31,6 @@ def main():
             year = input("Nhập năm học: ")
             student = Student(sid, name, gpa, year)
             manager.add_student(student)
-            manager.save_to_file()
 
         elif choice == "2":
             manager.show_students()
@@ -42,7 +42,6 @@ def main():
         elif choice == "4":
             sid = input("Nhập ID cần xóa: ")
             manager.delete_student(sid)
-            manager.save_to_file()
 
         elif choice == "5":
             print("Thoát chương trình.")
@@ -57,7 +56,12 @@ def main():
         elif choice == "8":
             student_id = input("Nhập ID sinh viên cần sửa, muốn hủy hãy nhập 0: ")
             manager.edit_infomation(student_id)
-            manager.save_to_file()
+
+        elif choice == "9":
+            file_name = input("Nhập tên file Excel (mặc định students.xlsx), phải điền đuôi xlsx: ")
+            if not file_name:
+                file_name = "students.xlsx"
+            manager.export_to_excel(file_name)
 
         else:
             print("Lựa chọn không hợp lệ!")
