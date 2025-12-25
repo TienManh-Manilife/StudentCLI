@@ -5,7 +5,7 @@ class StudentManager:
     def add_student(self, student):
         self.students.append(student)
 
-    def show_student(self):
+    def show_students(self):
         if not self.students:
             print("Danh sách trống!")
         else:
