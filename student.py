@@ -4,8 +4,6 @@ class Student:
         self.name = name
         self.gpa = gpa
     
-    def print_student(self):
-        print(self.id)
-
-sa = Student(24020220, "Nguyen Tien Manh", 3.6)
-sa.print_student()
+    def __str__(self):
+        return f"{self.id} - {self.name} - {self.gpa}"
+    
