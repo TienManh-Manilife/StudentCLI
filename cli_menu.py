@@ -19,6 +19,7 @@ def main():
         print("10. Sắp xếp sinh viên theo GPA")
         print("11. Sắp xếp sinh viên theo mã số")
         print("12. Lấy dữ liệu từ file input.xlsx rồi thêm sinh viên vào danh sách\nNếu trùng mã số thì cập nhật thông tin mới")
+        print("13. Hiển thị xếp loại sinh viên theo GPA")
 
         if first_time:
             first_time = False
@@ -77,6 +78,11 @@ def main():
             if not file_name:
                 file_name = "input.xlsx"
             manager.import_from_excel(file_name)
+
+        elif choice == "13":
+            print("Điền GPA muốn phân loại (Lấy dữ liệu lớn hơn hoặc bằng):")
+            gpa = float(input("GPA: "))
+            manager.classify_students_by_gpa(gpa)
 
         else:
             print("Lựa chọn không hợp lệ!")

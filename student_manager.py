@@ -141,3 +141,13 @@ class StudentManager:
             self.save_to_file()
         except FileNotFoundError:
             print("File Excel không tồn tại!")
+
+    # Phân loại sinh viên theo GPA
+    def classify_students_by_gpa(self, gpa):
+        print(f"Sinh viên có GPA >= {gpa}:")
+        classified_students = [student for student in self.students if float(student.gpa) >= gpa]
+        if classified_students:
+            for student in classified_students:
+                print(student)
+        else:
+            print("Không có sinh viên nào đạt yêu cầu.")
