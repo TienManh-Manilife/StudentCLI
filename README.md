@@ -7,4 +7,10 @@
 3. Tìm kiếm sinh viên
 4. Xóa sinh viên
 5. Thoát
+6. Lưu dữ liệu vào file
+7. Tải dữ liệu từ file
+8. Thay đổi thông tin sinh viên
+9. Xuất dữ liệu ra file Excel
+10. Sắp xếp sinh viên theo GPA
+11. Sắp xếp sinh viên theo mã số
 

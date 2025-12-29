@@ -1,4 +1,5 @@
 import csv
+from turtle import st
 
 import openpyxl
 from student import *
@@ -13,6 +14,9 @@ class StudentManager:
         if self.find_student(student.id):
             print("Sinh viên đã tồn tại!")
             return
+        elif (student.gpa < 0.00) or (student.gpa > 4.00):
+            print("GPA không hợp lệ! Phải trong khoảng 0.0 đến 4.0")
+            return 
         else :
             self.students.append(student)
             print("Thêm sinh viên thành công!")
@@ -115,3 +119,25 @@ class StudentManager:
         print("Đã sắp xếp sinh viên theo mã số tăng dần.")
         self.show_students()
         self.save_to_file()
+
+    # Nhập dữ liệu từ file Excel
+    def import_from_excel(self, file_name="input.xlsx"):
+        try:
+            wb = openpyxl.load_workbook(file_name)
+            sheet = wb.active
+            count_new = 0
+            count_updated = 0
+            for row in sheet.iter_rows(min_row=2, values_only=True):
+                sid, name, gpa, year = row
+                student = Student(sid, name, gpa, year)
+                existing_student = self.find_student(sid)
+                if existing_student:
+                    self.students = [student if s.id == sid else s for s in self.students]
+                    count_updated += 1
+                else:
+                    self.students.append(student)
+                    count_new += 1
+            print(f"Đã thêm {count_new} sinh viên mới và cập nhật {count_updated} sinh viên từ file Excel.")
+            self.save_to_file()
+        except FileNotFoundError:
+            print("File Excel không tồn tại!")

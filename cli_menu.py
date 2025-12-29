@@ -18,6 +18,7 @@ def main():
         print("9. Xuất dữ liệu ra file Excel")
         print("10. Sắp xếp sinh viên theo GPA")
         print("11. Sắp xếp sinh viên theo mã số")
+        print("12. Lấy dữ liệu từ file input.xlsx rồi thêm sinh viên vào danh sách\nNếu trùng mã số thì cập nhật thông tin mới")
 
         if first_time:
             first_time = False
@@ -29,7 +30,7 @@ def main():
             print("Nhập thông tin, có thể nhập có dấu:")
             sid = input("Nhập ID: ")
             name = input("Nhập tên: ")
-            gpa = input("Nhập GPA: ")
+            gpa = input("Nhập GPA hệ 4: ")
             year = input("Nhập năm học: ")
             student = Student(sid, name, gpa, year)
             manager.add_student(student)
@@ -70,6 +71,12 @@ def main():
 
         elif choice == "11":
             manager.sort_students_by_id()
+        
+        elif choice == "12":
+            file_name = input("Nhập tên file Excel đầu vào (mặc định input.xlsx), phải điền đuôi xlsx: ")
+            if not file_name:
+                file_name = "input.xlsx"
+            manager.import_from_excel(file_name)
 
         else:
             print("Lựa chọn không hợp lệ!")
