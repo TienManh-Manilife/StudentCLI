@@ -8,6 +8,7 @@ class StudentManager:
     def __init__(self):
         self.students = []
 
+    # Thêm sinh viên
     def add_student(self, student):
         if self.find_student(student.id):
             print("Sinh viên đã tồn tại!")
@@ -18,6 +19,7 @@ class StudentManager:
             self.save_to_file()
             return
 
+    # Hiển thị danh sách sinh viên
     def show_students(self):
         if not self.students:
             print("Danh sách trống!")
@@ -26,6 +28,7 @@ class StudentManager:
             for student in self.students:
                 print(student)
 
+    # Tìm kiếm sinh viên theo ID hoặc tên
     def find_student(self, student_id):
         list = [student for student in self.students 
                        if student_id == student.id or student_id == student.name]
@@ -38,6 +41,7 @@ class StudentManager:
             print("Sinh viên không tồn tại!")
             return False
 
+    # Xóa sinh viên theo ID
     def delete_student(self, student_id): 
         if not self.find_student(student_id):
             print("Sinh viên không tồn tại nên không thể xóa!")
@@ -47,6 +51,7 @@ class StudentManager:
             print("Đã xóa thành công!")
             self.save_to_file()
 
+    # Lưu dữ liệu vào file CSV
     def save_to_file(self, file_name="students.csv"): 
         with open(file_name, mode="w", newline="", encoding="utf-8") as file: 
             writer = csv.writer(file)
@@ -54,6 +59,7 @@ class StudentManager:
             for student in self.students: writer.writerow([student.id, student.name, student.gpa, student.year]) 
             print("Đã lưu dữ liệu vào file", file_name)
 
+    # Load dữ liệu từ file CSV
     def load_from_file(self, file_name="students.csv"): 
         try: 
             with open(file_name, mode="r", encoding="utf-8") as file: 
@@ -62,6 +68,7 @@ class StudentManager:
                 print("Đã tải dữ liệu từ file", file_name) 
         except FileNotFoundError: print("Chưa có file dữ liệu, bắt đầu mới.")
 
+    # Thay đổi thông tin sinh viên
     def edit_infomation(self, student_id):
         if student_id == "0":
             return
@@ -76,9 +83,8 @@ class StudentManager:
             print("Đã sửa thành công!")
             self.save_to_file()
 
+    # Lưu ngay dữ liệu ra file Excel
     def export_to_excel(self, file_name="students.xlsx"):
-        self.save_to_file()
-        self.load_from_file()
         wb = openpyxl.Workbook()
         sheet = wb.active
         sheet.title = "Students"
@@ -91,6 +97,21 @@ class StudentManager:
             cell.fill = PatternFill(start_color="4F81BD", end_color="4F81BD", fill_type="solid")
         for student in self.students:
             sheet.append([student.id, student.name, student.gpa, student.year])
-
         wb.save(file_name)
         print("Đã xuất dữ liệu ra file Excel:", file_name)
+
+    # Load -> Sắp xếp -> Lưu
+    def sort_students_by_gpa(self):
+        self.load_from_file()
+        self.students.sort(key=lambda student: float(student.gpa), reverse=True)
+        print("Đã sắp xếp sinh viên theo GPA giảm dần.")
+        self.show_students()
+        self.save_to_file()
+
+    # Load -> Sắp xếp -> Lưu
+    def sort_students_by_id(self):
+        self.load_from_file()
+        self.students.sort(key=lambda student: student.id)
+        print("Đã sắp xếp sinh viên theo mã số tăng dần.")
+        self.show_students()
+        self.save_to_file()

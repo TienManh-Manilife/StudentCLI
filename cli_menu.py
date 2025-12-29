@@ -6,7 +6,7 @@ def main():
     first_time = True
 
     while True:
-        print("\n--- Student CLI ---")
+        print("\n--- Student ---")
         print("1. Thêm sinh viên")
         print("2. Hiển thị danh sách")
         print("3. Tìm kiếm sinh viên")
@@ -16,6 +16,8 @@ def main():
         print("7. Tải dữ liệu từ file")
         print("8. Thay đổi thông tin sinh viên")
         print("9. Xuất dữ liệu ra file Excel")
+        print("10. Sắp xếp sinh viên theo GPA")
+        print("11. Sắp xếp sinh viên theo mã số")
 
         if first_time:
             first_time = False
@@ -62,6 +64,12 @@ def main():
             if not file_name:
                 file_name = "students.xlsx"
             manager.export_to_excel(file_name)
+        
+        elif choice == "10":
+            manager.sort_students_by_gpa()
+
+        elif choice == "11":
+            manager.sort_students_by_id()
 
         else:
             print("Lựa chọn không hợp lệ!")
