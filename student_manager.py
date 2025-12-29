@@ -151,3 +151,19 @@ class StudentManager:
                 print(student)
         else:
             print("Không có sinh viên nào đạt yêu cầu.")
+
+    # Thống kê điểm
+    def statistical_analysis(self):
+        if not self.students:
+            print("Danh sách sinh viên trống!")
+            return
+        gpas = [float(student.gpa) for student in self.students]
+        average_gpa = sum(gpas) / len(gpas)
+        max_gpa = max(gpas)
+        min_gpa = min(gpas)
+        print(f"Thống kê điểm:")
+        print(f"- GPA trung bình: {average_gpa:.2f}")
+        print(f"- GPA cao nhất: {max_gpa:.2f}")
+        print(f"- GPA thấp nhất: {min_gpa:.2f}")
+        print(f"- Phương sai: {sum((x - average_gpa) ** 2 for x in gpas) / len(gpas):.2f}")
+        print(f"- Độ lệch chuẩn: {(sum((x - average_gpa) ** 2 for x in gpas) / len(gpas)) ** 0.5:.2f}")
