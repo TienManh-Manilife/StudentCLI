@@ -7,4 +7,4 @@ if __name__ == "__main__":
         from cli_menu import main
         main()
     else:
-        app().run()
+        StudentApp().run()

@@ -154,6 +154,7 @@ class StudentManager:
 
     # Thống kê điểm
     def statistical_analysis(self):
+        self.load_from_file()
         if not self.students:
             print("Danh sách sinh viên trống!")
             return
@@ -161,9 +162,16 @@ class StudentManager:
         average_gpa = sum(gpas) / len(gpas)
         max_gpa = max(gpas)
         min_gpa = min(gpas)
-        print(f"Thống kê điểm:")
-        print(f"- GPA trung bình: {average_gpa:.2f}")
-        print(f"- GPA cao nhất: {max_gpa:.2f}")
-        print(f"- GPA thấp nhất: {min_gpa:.2f}")
-        print(f"- Phương sai: {sum((x - average_gpa) ** 2 for x in gpas) / len(gpas):.2f}")
-        print(f"- Độ lệch chuẩn: {(sum((x - average_gpa) ** 2 for x in gpas) / len(gpas)) ** 0.5:.2f}")
+        stats = {
+            "Trung bình": average_gpa,
+            "Max": max_gpa,
+            "Min": min_gpa,
+            "Phương sai": sum((x - average_gpa) ** 2 for x in gpas) / len(gpas),
+            "Độ lệch chuẩn": (sum((x - average_gpa) ** 2 for x in gpas) / len(gpas)) ** 0.5
+        }
+        print("Thống kê điểm GPA:")
+        s = ""
+        for key, value in stats.items():
+            s = s + f"{key}: {value:.2f}\n"
+            print(f"{key}: {value:.2f}")
+        return s
