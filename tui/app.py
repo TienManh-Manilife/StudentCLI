@@ -5,35 +5,8 @@ import openpyxl as openxyl
 from textual.screen import Screen
 
 from student_manager import StudentManager
-import student_manager
 import cli.cli_menu
-
-s_manager = StudentManager()
-
-class Menu(App):
-
-    def compose(self) -> ComposeResult:
-        # Tạo container TabbedContent
-        with TabbedContent():
-            # Tab Menu
-            with TabPane("Menu"):
-                for func in cli.cli_menu.function:
-                    yield Button(cli.cli_menu.function[func], id=f"button_{str(func)}")
-                yield Button("Thoát", id="exit_button")
-                yield Static("Nhấn 'Q' hoặc 'Esc' để thoát ứng dụng.")
-
-    def on_button_pressed(self, event: Button.Pressed) -> None:
-        button_id = event.button.id
-        if button_id == "button_1":
-            self.push_screen(AddStudentsScreen())
-        elif button_id == "button_2":
-            self.push_screen(ShowStudentsScreen())
-        elif button_id == "exit_button":
-            self.exit()
-
-    def on_key(self, event): 
-        if event.key in ("Q", "escape"):
-            self.exit()
+from tui.base_screen import s_manager
 
 class AddStudentsScreen(Screen):
     def compose(self) -> ComposeResult:
@@ -51,6 +24,7 @@ class AddStudentsScreen(Screen):
                 yield Button("Quay lại Menu", id="back_button")
                 yield Button("Thoát", id="exit_button")
                 yield Static("Nhấn 'Q' hoặc 'Esc' để thoát ứng dụng.")
+
     def on_button_pressed(self, event: Button.Pressed) -> None:
         button_id = event.button.id
         if button_id == "save_button":
@@ -70,7 +44,7 @@ class AddStudentsScreen(Screen):
             self.query_one("#input_year", Input).value = ""
 
         elif button_id == "back_button":
-            self.pop_screen()
+            self.app.pop_screen()
         elif button_id == "exit_button":
             self.exit()
 
@@ -78,9 +52,19 @@ class ShowStudentsScreen(Screen):
     def compose(self) -> ComposeResult:
         with TabbedContent():
             with TabPane("Danh sách"):
+                table = DataTable()
+                table.add_columns("ID", "Tên", "GPA", "Năm học")
                 s_manager.load_from_file()
-                yield Static(s_manager.show_students())
+                for student in s_manager.students:
+                    table.add_row(student.id, student.name, str(student.gpa), student.year)
+                yield table
 
                 yield Button("Quay lại Menu", id="back_button")
                 yield Button("Thoát", id="exit_button")
                 yield Static("Nhấn 'Q' hoặc 'Esc' để thoát ứng dụng.")
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        button_id = event.button.id
+        if button_id == "back_button":
+            self.app.pop_screen()
+        elif button_id == "exit_button":
+            self.exit()
