@@ -2,27 +2,19 @@ from unittest import case
 from student_manager import StudentManager
 from student import Student
 
-
+function = {1: "1. Thêm sinh viên", 2: "2. Hiển thị danh sách", 3: "3. Tìm kiếm sinh viên", 4: "4. Xóa sinh viên", 5: "5. Thống kê điểm",
+            6: "6. Lưu dữ liệu vào file csv", 7: "7. Tải dữ liệu từ file csv", 8: "8. Thay đổi thông tin sinh viên",
+            9: "9. Xuất dữ liệu ra file excel", 10: "10. Sắp xếp sinh viên theo GPA", 11: "11. Sắp xếp sinh viên theo mã số",
+            12: "12. Lấy dữ liệu từ file input.xlsx rồi thêm sinh viên vào danh sách\nNếu trùng mã số thì cập nhật thông tin mới",
+            13: "13. Hiển thị xếp loại sinh viên theo GPA", 14: "14. Thoát"}
 def main():
     manager = StudentManager()
     first_time = True
 
     while True:
         print("\n--- Student ---")
-        print("1. Thêm sinh viên")
-        print("2. Hiển thị danh sách")
-        print("3. Tìm kiếm sinh viên")
-        print("4. Xóa sinh viên")
-        print("5. Thoát")
-        print("6. Lưu dữ liệu vào file") 
-        print("7. Tải dữ liệu từ file")
-        print("8. Thay đổi thông tin sinh viên")
-        print("9. Xuất dữ liệu ra file Excel")
-        print("10. Sắp xếp sinh viên theo GPA")
-        print("11. Sắp xếp sinh viên theo mã số")
-        print("12. Lấy dữ liệu từ file input.xlsx rồi thêm sinh viên vào danh sách\nNếu trùng mã số thì cập nhật thông tin mới")
-        print("13. Hiển thị xếp loại sinh viên theo GPA")
-        print("14. Thống kê điểm")
+        for func in function:
+            print(function[func])
 
         if first_time:
             first_time = False
@@ -50,8 +42,7 @@ def main():
             print(manager.delete_student(sid))
 
         elif choice == "5":
-            print("Thoát chương trình.")
-            break
+            print(manager.statistical_analysis())
 
         elif choice == "6":
             print(manager.save_to_file())
@@ -87,7 +78,8 @@ def main():
             print(manager.classify_students_by_gpa(gpa))
 
         elif choice == "14":
-            print(manager.statistical_analysis())
+            print("Thoát chương trình.")
+            break
 
         else:
             print("Lựa chọn không hợp lệ!")

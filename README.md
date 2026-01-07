@@ -14,8 +14,8 @@ Có 2 hình thức, người dùng có thể chọn khi bắt đầu:
 3. Tìm kiếm sinh viên
 4. Xóa sinh viên
 5. Thoát
-6. Lưu dữ liệu vào file
-7. Tải dữ liệu từ file
+6. Lưu dữ liệu vào file csv
+7. Tải dữ liệu từ file csv
 8. Thay đổi thông tin sinh viên
 9. Xuất dữ liệu ra file Excel
 10. Sắp xếp sinh viên theo GPA
