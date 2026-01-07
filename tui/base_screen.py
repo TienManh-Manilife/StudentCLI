@@ -14,7 +14,7 @@ class BaseScreen(Screen):
 
                 if not self.is_menu:
                     yield Button("Quay lại Menu", id="back_button")
-                yield Button("Thoát", id="exit_button")
+                    yield Button("Thoát", id="exit_button")
                 yield Static("Hoặc nhấn 'Q' hoặc 'Esc' để thoát ứng dụng.")
 
     def compose_content(self) -> ComposeResult:
