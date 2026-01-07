@@ -20,6 +20,9 @@ class Menu(App):
             with TabPane("Menu"):
                 yield Button("Thêm sinh viên", id="add_student_button")
                 yield Button("Hiển thị danh sách", id="show_students_button")
+                yield Button("Tìm kiếm sinh viên", id="find_student_button")
+                yield Button("Xóa sinh viên", id="delete_student_button")
+                
                 yield Button("Thoát", id="exit_button")
                 yield Static("Nhấn 'Q' hoặc 'Esc' để thoát ứng dụng.")
 
