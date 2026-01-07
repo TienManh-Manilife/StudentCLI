@@ -13,7 +13,7 @@ class StudentManager:
     # Thêm sinh viên
     def add_student(self, student):
         out = ""
-        if self.find_student(student.id):
+        if self.find_student(student.id) == "Tìm thành công!\n":
             out += "Sinh viên đã tồn tại!\n"
             return out
         elif (student.gpa < 0.00) or (student.gpa > 4.00):
@@ -21,7 +21,7 @@ class StudentManager:
             return out
         else :
             self.students.append(student)
-            out += "Đã thêm thành công!\n"
+            out += "Đã thêm " + str(student) + "thành công!\n"
             out += self.save_to_file() + "\n"
             return out
 

@@ -1,4 +1,5 @@
-from app.app import *
+from tui.app import *
+from tui.app import Menu
 
 if __name__ == "__main__":
     i = input("Trước khi mở quản lý sinh viên, bạn muốn sử dụng giao diện nào?\n 1. Giao diện đồ họa (GUI)\n 2. Giao diện dòng lệnh (CLI)" \
