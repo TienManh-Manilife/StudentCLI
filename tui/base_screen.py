@@ -1,26 +1,21 @@
 from math import e
 from textual.app import *
 from textual.widgets import *
-import openpyxl as openxyl
 from textual.screen import Screen
-from student_manager import StudentManager
 
-
-s_manager = StudentManager()
-
-class BaseScreen(App):
+class BaseScreen(Screen):
     title = "MẶC ĐỊNH"
     is_menu = False
 
     def compose(self) -> ComposeResult:
         with TabbedContent():
-            with TabPane(self.title):
+            with TabPane(str(self.title)):
                 yield from self.compose_content()
 
                 if not self.is_menu:
                     yield Button("Quay lại Menu", id="back_button")
                 yield Button("Thoát", id="exit_button")
-                yield Static("Nhấn 'Q' hoặc 'Esc' để thoát ứng dụng.")
+                yield Static("Hoặc nhấn 'Q' hoặc 'Esc' để thoát ứng dụng.")
 
     def compose_content(self) -> ComposeResult:
         yield Static("Tab mặc định. Hãy ghi đè phương thức compose_content.")

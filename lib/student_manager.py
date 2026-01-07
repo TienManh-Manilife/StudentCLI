@@ -1,6 +1,4 @@
 import csv
-import re
-from turtle import st
 
 import openpyxl
 from student import *
@@ -127,8 +125,8 @@ class StudentManager:
         self.load_from_file()
         self.students.sort(key=lambda student: float(student.gpa), reverse=True)
         out += "Đã sắp xếp sinh viên theo GPA giảm dần.\n"
-        out += self.show_students() + "\n"
         out += self.save_to_file() + "\n"
+        return out
 
     # Load -> Sắp xếp -> Lưu
     def sort_students_by_id(self):
@@ -136,8 +134,8 @@ class StudentManager:
         self.load_from_file()
         self.students.sort(key=lambda student: student.id)
         out += "Đã sắp xếp sinh viên theo mã số tăng dần.\n"
-        out += self.show_students() + "\n"
         out += self.save_to_file() + "\n"
+        return out
 
     # Nhập dữ liệu từ file Excel
     def import_from_excel(self, file_name="input.xlsx"):
@@ -162,6 +160,7 @@ class StudentManager:
             return out
         except FileNotFoundError:
             out += "File Excel không tồn tại!\n"
+        return out
 
     # Phân loại sinh viên theo GPA
     def classify_students_by_gpa(self, gpa):
