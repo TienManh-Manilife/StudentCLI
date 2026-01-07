@@ -1,9 +1,7 @@
 from math import e
 from textual.app import *
 from textual.widgets import *
-from lib.student_manager import StudentManager
-from tui.menu_screen import Menu
-from total_instances import student_manager
+from tui.menu_screen import MenuScreen
 
 class StudentManagerApp(App):
     title = "QUẢN LÝ SINH VIÊN"
@@ -21,7 +19,7 @@ class StudentManagerApp(App):
         if button_id == "exit_button":
             self.exit()
         elif button_id == "menu_button":
-            self.app.push_screen(Menu())
+            self.app.push_screen(MenuScreen())
 
     def on_key(self, event): 
         if event.key in ("Q", "escape"):

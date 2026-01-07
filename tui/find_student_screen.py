@@ -4,7 +4,7 @@ from textual.widgets import *
 from total_instances import student_manager
 from tui.base_screen import *
 
-class FindStudent(BaseScreen):
+class FindStudentScreen(BaseScreen):
     title = "TÌM HỌC SINH"
 
     def compose_content(self) -> ComposeResult:
