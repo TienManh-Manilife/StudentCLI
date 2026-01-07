@@ -6,6 +6,7 @@ from textual.screen import Screen
 import cli.cli_menu
 
 from tui.add_students_screen import AddStudentsScreen
+from tui.delete_student_screen import DeleteStudent
 from tui.find_student_screen import FindStudent
 from tui.student_manager_app import *
 from tui.base_screen import BaseScreen
@@ -28,6 +29,8 @@ class Menu(BaseScreen):
             self.app.push_screen(ShowStudentsScreen())
         elif button_id == "button_3":
             self.app.push_screen(FindStudent())
+        elif button_id == "button_4":
+            self.app.push_screen(DeleteStudent())
         else:
             super().on_button_pressed(event)
         
