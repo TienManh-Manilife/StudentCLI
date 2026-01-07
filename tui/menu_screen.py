@@ -1,8 +1,5 @@
-from math import e
 from textual.app import *
 from textual.widgets import *
-import openpyxl as openxyl
-from textual.screen import Screen
 import cli.cli_menu
 
 from tui.add_students_screen import AddStudentsScreen
@@ -14,7 +11,7 @@ from tui.student_manager_app import *
 from tui.base_screen import BaseScreen
 from tui.show_students_screen import ShowStudentsScreen
 from tui.load_from_file_screen import LoadFromFileScreen
-# from tui.edit_information_screen import EditInformationScreen
+from tui.edit_information_screen import EditInformationScreen
 
 
 class MenuScreen(BaseScreen):
@@ -41,8 +38,8 @@ class MenuScreen(BaseScreen):
             self.app.push_screen(SaveToFileScreen())
         elif button_id == "button_7":
             self.app.push_screen(LoadFromFileScreen())
-        # elif button_id == "button_8":
-        #     self.app.push_screen(EditInformationScreen())
+        elif button_id == "button_8":
+            self.app.push_screen(EditInformationScreen())
         else:
             super().on_button_pressed(event)
         

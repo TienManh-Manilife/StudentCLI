@@ -8,6 +8,7 @@ from openpyxl.styles import Font, Alignment, PatternFill
 class StudentManager:
     def __init__(self):
         self.students = []
+        self.is_loaded = False
 
     # Thêm sinh viên
     def add_student(self, student):
@@ -65,6 +66,10 @@ class StudentManager:
     # Lưu dữ liệu vào file CSV, trả về chuỗi
     def save_to_file(self, file_name="students.csv"):
         out = ""
+        if not self.is_loaded:
+            out = "Chưa load file nào nên mọi thay đổi đều không có dữ liệu để lưu!\n"
+            return out
+
         with open(file_name, mode="w", newline="", encoding="utf-8") as file: 
             writer = csv.writer(file)
             writer.writerow(["ID", "Name", "GPA", "Year"]) 
@@ -74,6 +79,7 @@ class StudentManager:
 
     # Load dữ liệu từ file CSV
     def load_from_file(self, file_name="students.csv"): 
+        self.is_loaded = True
         out = ""
         try: 
             with open(file_name, mode="r", encoding="utf-8") as file: 
@@ -96,6 +102,17 @@ class StudentManager:
             name = input("Nhập tên mới: ")
             gpa = input("Nhập GPA mới: ")
             year = input("Nhập năm học mới: ")
+            self.students = [Student(student_id, name, gpa, year) if s.id == student_id else s for s in self.students]
+            out += "Đã sửa thành công!\n"
+            out += self.save_to_file() + "\n"
+            return out
+        
+    def edit_infomation(self, student_id, name, gpa, year):
+        out = ""
+        if not self.find_student(student_id):
+            out += "Sinh viên không tồn tại!\n"
+            return out
+        else :
             self.students = [Student(student_id, name, gpa, year) if s.id == student_id else s for s in self.students]
             out += "Đã sửa thành công!\n"
             out += self.save_to_file() + "\n"
