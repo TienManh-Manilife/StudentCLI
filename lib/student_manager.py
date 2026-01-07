@@ -1,4 +1,5 @@
 import csv
+from json import load
 
 import openpyxl
 from student import *
@@ -37,7 +38,7 @@ class StudentManager:
 
     # Tìm kiếm sinh viên theo ID hoặc tên, trả về chuỗi
     def find_student(self, student_id):
-        out = ""
+        out = self.load_from_file()
         list = [student for student in self.students 
                        if student_id == student.id or student_id == student.name]
         if list:
