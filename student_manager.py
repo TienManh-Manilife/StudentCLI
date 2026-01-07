@@ -1,4 +1,5 @@
 import csv
+import re
 from turtle import st
 
 import openpyxl
@@ -11,84 +12,99 @@ class StudentManager:
 
     # Thêm sinh viên
     def add_student(self, student):
+        out = ""
         if self.find_student(student.id):
-            print("Sinh viên đã tồn tại!")
-            return
+            out += "Sinh viên đã tồn tại!\n"
+            return out
         elif (student.gpa < 0.00) or (student.gpa > 4.00):
-            print("GPA không hợp lệ! Phải trong khoảng 0.0 đến 4.0")
-            return 
+            out += "GPA không hợp lệ!\n"
+            return out
         else :
             self.students.append(student)
-            print("Thêm sinh viên thành công!")
-            self.save_to_file()
-            return
+            out += "Đã thêm thành công!\n"
+            out += self.save_to_file() + "\n"
+            return out
 
-    # Hiển thị danh sách sinh viên
+    # Hiển thị danh sách sinh viên, trả về chuỗi
     def show_students(self):
+        out = ""
         if not self.students:
-            print("Danh sách trống!")
+            out += "Danh sách sinh viên trống!\n"
+            return out
         else:
-            print("Danh sách:")
+            out += "Danh sách sinh viên:\n"
             for student in self.students:
-                print(student)
+                out += str(student) + "\n"
+            return out
 
-    # Tìm kiếm sinh viên theo ID hoặc tên
+    # Tìm kiếm sinh viên theo ID hoặc tên, trả về chuỗi
     def find_student(self, student_id):
+        out = ""
         list = [student for student in self.students 
                        if student_id == student.id or student_id == student.name]
         if list:
+            out += "Tìm thành công!\n"
             for student in list:
-                print("Tìm thành công!")
-                print(student)
-                return True
+                out += str(student) + "\n"
+            return out
         else:
-            print("Sinh viên không tồn tại!")
-            return False
+            out += "Sinh viên không tồn tại!\n"
+            return out
 
     # Xóa sinh viên theo ID
-    def delete_student(self, student_id): 
+    def delete_student(self, student_id):
+        out = ""
         if not self.find_student(student_id):
-            print("Sinh viên không tồn tại nên không thể xóa!")
-            return
+            out += "Sinh viên không tồn tại!\n"
+            return out
         else :
             self.students = [student for student in self.students if student.id != student_id]
-            print("Đã xóa thành công!")
-            self.save_to_file()
+            out += "Đã xóa thành công!\n"
+            out += self.save_to_file() + "\n"
+            return out
 
-    # Lưu dữ liệu vào file CSV
-    def save_to_file(self, file_name="students.csv"): 
+    # Lưu dữ liệu vào file CSV, trả về chuỗi
+    def save_to_file(self, file_name="students.csv"):
+        out = ""
         with open(file_name, mode="w", newline="", encoding="utf-8") as file: 
             writer = csv.writer(file)
             writer.writerow(["ID", "Name", "GPA", "Year"]) 
             for student in self.students: writer.writerow([student.id, student.name, student.gpa, student.year]) 
-            print("Đã lưu dữ liệu vào file", file_name)
+            out += "Đã lưu dữ liệu vào file " + file_name + "\n"
+            return out
 
     # Load dữ liệu từ file CSV
     def load_from_file(self, file_name="students.csv"): 
+        out = ""
         try: 
             with open(file_name, mode="r", encoding="utf-8") as file: 
                 reader = csv.DictReader(file) 
                 self.students = [Student(row["ID"], row["Name"], row["GPA"], row["Year"]) for row in reader] 
-                print("Đã tải dữ liệu từ file", file_name) 
-        except FileNotFoundError: print("Chưa có file dữ liệu, bắt đầu mới.")
-
+                out += "Đã tải dữ liệu từ file " + file_name + "\n"
+                return out
+        except FileNotFoundError: 
+            out += "File không tồn tại!\n"
+            return out
+        
     # Thay đổi thông tin sinh viên
     def edit_infomation(self, student_id):
+        out = ""
         if student_id == "0":
             return
         if not self.find_student(student_id):
             return
         else :
-            print("Nhập thông tin mới:")
             name = input("Nhập tên mới: ")
             gpa = input("Nhập GPA mới: ")
             year = input("Nhập năm học mới: ")
             self.students = [Student(student_id, name, gpa, year) if s.id == student_id else s for s in self.students]
-            print("Đã sửa thành công!")
-            self.save_to_file()
+            out += "Đã sửa thành công!\n"
+            out += self.save_to_file() + "\n"
+            return out
 
     # Lưu ngay dữ liệu ra file Excel
     def export_to_excel(self, file_name="students.xlsx"):
+        out = ""
         wb = openpyxl.Workbook()
         sheet = wb.active
         sheet.title = "Students"
@@ -102,26 +118,30 @@ class StudentManager:
         for student in self.students:
             sheet.append([student.id, student.name, student.gpa, student.year])
         wb.save(file_name)
-        print("Đã xuất dữ liệu ra file Excel:", file_name)
+        out += "Đã xuất dữ liệu ra file " + file_name + "\n"
+        return out
 
     # Load -> Sắp xếp -> Lưu
     def sort_students_by_gpa(self):
+        out = ""
         self.load_from_file()
         self.students.sort(key=lambda student: float(student.gpa), reverse=True)
-        print("Đã sắp xếp sinh viên theo GPA giảm dần.")
-        self.show_students()
-        self.save_to_file()
+        out += "Đã sắp xếp sinh viên theo GPA giảm dần.\n"
+        out += self.show_students() + "\n"
+        out += self.save_to_file() + "\n"
 
     # Load -> Sắp xếp -> Lưu
     def sort_students_by_id(self):
+        out = ""
         self.load_from_file()
         self.students.sort(key=lambda student: student.id)
-        print("Đã sắp xếp sinh viên theo mã số tăng dần.")
-        self.show_students()
-        self.save_to_file()
+        out += "Đã sắp xếp sinh viên theo mã số tăng dần.\n"
+        out += self.show_students() + "\n"
+        out += self.save_to_file() + "\n"
 
     # Nhập dữ liệu từ file Excel
     def import_from_excel(self, file_name="input.xlsx"):
+        out = ""
         try:
             wb = openpyxl.load_workbook(file_name)
             sheet = wb.active
@@ -137,27 +157,30 @@ class StudentManager:
                 else:
                     self.students.append(student)
                     count_new += 1
-            print(f"Đã thêm {count_new} sinh viên mới và cập nhật {count_updated} sinh viên từ file Excel.")
-            self.save_to_file()
+            out += f"Đã thêm {count_new} sinh viên mới và cập nhật {count_updated} sinh viên từ file Excel.\n"
+            out += self.save_to_file() + "\n"
+            return out
         except FileNotFoundError:
-            print("File Excel không tồn tại!")
+            out += "File Excel không tồn tại!\n"
 
     # Phân loại sinh viên theo GPA
     def classify_students_by_gpa(self, gpa):
-        print(f"Sinh viên có GPA >= {gpa}:")
+        out = f"Sinh viên có GPA >= {gpa}:\n"
         classified_students = [student for student in self.students if float(student.gpa) >= gpa]
         if classified_students:
             for student in classified_students:
-                print(student)
+                out += str(student) + "\n"
         else:
-            print("Không có sinh viên nào đạt yêu cầu.")
+            out += "Không có sinh viên nào đạt yêu cầu.\n"
+        return out
 
     # Thống kê điểm
     def statistical_analysis(self):
+        out = ""
         self.load_from_file()
         if not self.students:
-            print("Danh sách sinh viên trống!")
-            return
+            out += "Danh sách sinh viên trống!\n"
+            return out
         gpas = [float(student.gpa) for student in self.students]
         average_gpa = sum(gpas) / len(gpas)
         max_gpa = max(gpas)
@@ -169,9 +192,7 @@ class StudentManager:
             "Phương sai": sum((x - average_gpa) ** 2 for x in gpas) / len(gpas),
             "Độ lệch chuẩn": (sum((x - average_gpa) ** 2 for x in gpas) / len(gpas)) ** 0.5
         }
-        print("Thống kê điểm GPA:")
-        s = ""
+        out = "Thống kê điểm GPA:\n"
         for key, value in stats.items():
-            s = s + f"{key}: {value:.2f}\n"
-            print(f"{key}: {value:.2f}")
-        return s
+            out += f"{key}: {value:.2f}\n"
+        return out
