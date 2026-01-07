@@ -13,6 +13,8 @@ from tui.statistical_analysis_screen import StatisticalAnalysisScreen
 from tui.student_manager_app import *
 from tui.base_screen import BaseScreen
 from tui.show_students_screen import ShowStudentsScreen
+from tui.load_from_file_screen import LoadFromFileScreen
+# from tui.edit_information_screen import EditInformationScreen
 
 
 class MenuScreen(BaseScreen):
@@ -37,8 +39,8 @@ class MenuScreen(BaseScreen):
             self.app.push_screen(StatisticalAnalysisScreen())
         elif button_id == "button_6":
             self.app.push_screen(SaveToFileScreen())
-        # elif button_id == "button_7":
-        #     self.app.push_screen(LoadFromFileScreen())
+        elif button_id == "button_7":
+            self.app.push_screen(LoadFromFileScreen())
         # elif button_id == "button_8":
         #     self.app.push_screen(EditInformationScreen())
         else:
