@@ -27,6 +27,7 @@ def main():
             sid = input("Nhập ID: ")
             name = input("Nhập tên: ")
             gpa = input("Nhập GPA hệ 4: ")
+            gpa = float(gpa)
             year = input("Nhập năm học: ")
             student = Student(sid, name, gpa, year)
             print(student_manager.add_student(student))

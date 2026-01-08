@@ -90,26 +90,10 @@ class StudentManager:
         except FileNotFoundError: 
             out += "File không tồn tại!\n"
             return out
-        
-    # Thay đổi thông tin sinh viên
-    def edit_infomation(self, student_id):
+
+    def edit_infomation(self, student_id, name=None, gpa=None, year=None):
         out = ""
-        if student_id == "0":
-            return
-        if not self.find_student(student_id):
-            return
-        else :
-            name = input("Nhập tên mới: ")
-            gpa = input("Nhập GPA mới: ")
-            year = input("Nhập năm học mới: ")
-            self.students = [Student(student_id, name, gpa, year) if s.id == student_id else s for s in self.students]
-            out += "Đã sửa thành công!\n"
-            out += self.save_to_file() + "\n"
-            return out
-        
-    def edit_infomation(self, student_id, name, gpa, year):
-        out = ""
-        if not self.find_student(student_id):
+        if "không tồn tại" in self.find_student(student_id):
             out += "Sinh viên không tồn tại!\n"
             return out
         else :
