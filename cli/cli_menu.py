@@ -1,5 +1,3 @@
-from unittest import case
-from lib.student_manager import StudentManager
 from student import Student
 from total_instances import student_manager
 

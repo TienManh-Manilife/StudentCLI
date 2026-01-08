@@ -1,5 +1,4 @@
 import csv
-from json import load
 
 import openpyxl
 from student import *

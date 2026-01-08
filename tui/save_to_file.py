@@ -1,4 +1,3 @@
-from math import e
 from textual.app import *
 from textual.widgets import *
 
