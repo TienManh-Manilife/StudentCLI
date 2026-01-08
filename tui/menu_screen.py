@@ -4,6 +4,7 @@ import cli.cli_menu
 
 from tui.add_students_screen import AddStudentsScreen
 from tui.delete_student_screen import DeleteStudentScreen
+from tui.export_to_excel_screen import ExportToExcelScreen
 from tui.find_student_screen import FindStudentScreen
 from tui.save_to_file import SaveToFileScreen
 from tui.statistical_analysis_screen import StatisticalAnalysisScreen
@@ -40,6 +41,8 @@ class MenuScreen(BaseScreen):
             self.app.push_screen(LoadFromFileScreen())
         elif button_id == "button_8":
             self.app.push_screen(EditInformationScreen())
+        elif button_id == "button_9":
+            self.app.push_screen(ExportToExcelScreen())
         else:
             super().on_button_pressed(event)
         

@@ -121,6 +121,10 @@ class StudentManager:
     # Lưu ngay dữ liệu ra file Excel
     def export_to_excel(self, file_name="students.xlsx"):
         out = ""
+        if not self.is_loaded:
+            out = "Chưa load file nào nên không có dữ liệu để xuất ra Excel!\n " \
+            "Yêu cầu load file trước khi xuất ra Excel.\n"
+            return out
         wb = openpyxl.Workbook()
         sheet = wb.active
         sheet.title = "Students"
