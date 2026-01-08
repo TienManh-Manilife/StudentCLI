@@ -161,7 +161,7 @@ class StudentManager:
 
     # Nhập dữ liệu từ file Excel
     def import_from_excel(self, file_name="input.xlsx"):
-        out = ""
+        out = self.load_from_file()
         try:
             wb = openpyxl.load_workbook(file_name)
             sheet = wb.active
