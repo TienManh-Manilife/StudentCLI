@@ -28,5 +28,5 @@ class BaseScreen(Screen):
             self.exit()
 
     def on_key(self, event): 
-        if event.key in ("Q", "escape"):
+        if event.key in ("Q", "q", "escape"):
             self.exit()

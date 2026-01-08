@@ -22,5 +22,5 @@ class StudentManagerApp(App):
             self.app.push_screen(MenuScreen())
 
     def on_key(self, event): 
-        if event.key in ("Q", "escape"):
+        if event.key in ("Q", "q", "escape"):
             self.exit()
