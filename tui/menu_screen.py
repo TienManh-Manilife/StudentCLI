@@ -3,6 +3,7 @@ from textual.widgets import *
 import cli.cli_menu
 
 from tui.add_students_screen import AddStudentsScreen
+from tui.classify_students_by_gpa_screen import ClassifyStudentsByGPA
 from tui.delete_student_screen import DeleteStudentScreen
 from tui.export_to_excel_screen import ExportToExcelScreen
 from tui.find_student_screen import FindStudentScreen
@@ -52,6 +53,8 @@ class MenuScreen(BaseScreen):
             self.app.push_screen(SortStudentsByIDScreen())
         elif button_id == "button_12":
             self.app.push_screen(ImportFromFileScreen())
+        elif button_id == "button_13":
+            self.app.push_screen(ClassifyStudentsByGPA())
         else:
             super().on_button_pressed(event)
         

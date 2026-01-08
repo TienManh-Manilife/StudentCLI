@@ -186,7 +186,8 @@ class StudentManager:
 
     # Phân loại sinh viên theo GPA
     def classify_students_by_gpa(self, gpa):
-        out = f"Sinh viên có GPA >= {gpa}:\n"
+        out = self.load_from_file()
+        out += f"Sinh viên có GPA >= {str(gpa)}:\n"
         classified_students = [student for student in self.students if float(student.gpa) >= gpa]
         if classified_students:
             for student in classified_students:
