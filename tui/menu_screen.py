@@ -7,6 +7,7 @@ from tui.delete_student_screen import DeleteStudentScreen
 from tui.export_to_excel_screen import ExportToExcelScreen
 from tui.find_student_screen import FindStudentScreen
 from tui.save_to_file import SaveToFileScreen
+from tui.sort_students_by_gpa_screen import SortStudentsByGPAScreen
 from tui.statistical_analysis_screen import StatisticalAnalysisScreen
 from tui.student_manager_app import *
 from tui.base_screen import BaseScreen
@@ -43,6 +44,8 @@ class MenuScreen(BaseScreen):
             self.app.push_screen(EditInformationScreen())
         elif button_id == "button_9":
             self.app.push_screen(ExportToExcelScreen())
+        elif button_id == "button_10":
+            self.app.push_screen(SortStudentsByGPAScreen())
         else:
             super().on_button_pressed(event)
         
